@@ -407,6 +407,10 @@ class DeviceTable:
         return list(map(list, zip(self.ips, self.macs)))
 
     def __str__(self) -> str:
+        """
+        The object ToString function.
+        :return: the current object as a string.
+        """
         return pd.DataFrame(self.elements, columns=self.labels).to_string()
 
 
@@ -434,8 +438,8 @@ def is_admin() -> bool:
 
 def get_option() -> int:
     """
-    this function 
-    :return: the inputted option as a int
+    this function ask the user for the action he wants to do in the main function.
+    :return: the inputted option as an int.
     """
     tmp = input("    Please choose an option (type a number between 1-5): ")
     tmp = tmp if 'q' not in tmp else tmp.replace('q', '')
@@ -453,13 +457,17 @@ def clear() -> None:
 def underline(string: str) -> str:
     """
     this function add an underline to the given string.
-    :param string:
+    :param string: a given string that needs an underline added.
     :return: the given string with an underline.
     """
     return f"\033[4m{string}\033[0m"
 
 
-def get_operation():
+def get_operation() -> str:
+    """
+    this function ask the user, what kind of operation he wants to do, as part of the arp spoofing attack.
+    :return: the chosen operation as a string.
+    """
     tmp = input("To see potential targets type: hosts\n"
                 "To stop a running attack type: stop\n"
                 "To add an attack type: start\n"
@@ -470,7 +478,7 @@ def get_operation():
 
 def main():
     """
-
+    The Main Function.
     :return: None
     """
     spoofer = ARPSpoofing()
