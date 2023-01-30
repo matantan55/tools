@@ -1,0 +1,208 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="765" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="2">
+            <item index="0" class="java.lang.String" itemvalue="autocorrect" />
+            <item index="1" class="java.lang.String" itemvalue="name" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="12">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="tbody" />
+            <item index="7" class="java.lang.String" itemvalue="style" />
+            <item index="8" class="java.lang.String" itemvalue="font-family" />
+            <item index="9" class="java.lang.String" itemvalue="head" />
+            <item index="10" class="java.lang.String" itemvalue="div" />
+            <item index="11" class="java.lang.String" itemvalue="py-script" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HttpUrlsUsage" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredUrls">
+        <list>
+          <option value="http://localhost" />
+          <option value="http://127.0.0.1" />
+          <option value="http://0.0.0.0" />
+          <option value="http://www.w3.org/" />
+          <option value="http://json-schema.org/draft" />
+          <option value="http://java.sun.com/" />
+          <option value="http://xmlns.jcp.org/" />
+          <option value="http://javafx.com/javafx/" />
+          <option value="http://javafx.com/fxml" />
+          <option value="http://maven.apache.org/xsd/" />
+          <option value="http://maven.apache.org/POM/" />
+          <option value="http://www.springframework.org/schema/" />
+          <option value="http://www.springframework.org/tags" />
+          <option value="http://www.springframework.org/security/tags" />
+          <option value="http://www.thymeleaf.org" />
+          <option value="http://www.jboss.org/j2ee/schema/" />
+          <option value="http://www.jboss.com/xml/ns/" />
+          <option value="http://www.ibm.com/webservices/xsd" />
+          <option value="http://activemq.apache.org/schema/" />
+          <option value="http://schema.cloudfoundry.org/spring/" />
+          <option value="http://schemas.xmlsoap.org/" />
+          <option value="http://cxf.apache.org/schemas/" />
+          <option value="http://primefaces.org/ui" />
+          <option value="http://tiles.apache.org/" />
+          <option value="http://api.openweathermap.org" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="ProblematicWhitespace" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyArgumentEqualDefaultInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyAugmentAssignmentInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyClassicStyleClassInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyMandatoryEncodingInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyMissingTypeHintsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="104">
+            <item index="0" class="java.lang.String" itemvalue="pyparrot" />
+            <item index="1" class="java.lang.String" itemvalue="pusher" />
+            <item index="2" class="java.lang.String" itemvalue="flask" />
+            <item index="3" class="java.lang.String" itemvalue="httpagentparser" />
+            <item index="4" class="java.lang.String" itemvalue="httplib2" />
+            <item index="5" class="java.lang.String" itemvalue="google" />
+            <item index="6" class="java.lang.String" itemvalue="pandas" />
+            <item index="7" class="java.lang.String" itemvalue="matplotlib" />
+            <item index="8" class="java.lang.String" itemvalue="pushjack" />
+            <item index="9" class="java.lang.String" itemvalue="twilio" />
+            <item index="10" class="java.lang.String" itemvalue="pywhatkit" />
+            <item index="11" class="java.lang.String" itemvalue="apns" />
+            <item index="12" class="java.lang.String" itemvalue="PyAutoGUI" />
+            <item index="13" class="java.lang.String" itemvalue="tqdm" />
+            <item index="14" class="java.lang.String" itemvalue="pygame" />
+            <item index="15" class="java.lang.String" itemvalue="opencv-python" />
+            <item index="16" class="java.lang.String" itemvalue="pyttsx3" />
+            <item index="17" class="java.lang.String" itemvalue="setuptools" />
+            <item index="18" class="java.lang.String" itemvalue="numpy" />
+            <item index="19" class="java.lang.String" itemvalue="requests" />
+            <item index="20" class="java.lang.String" itemvalue="mss" />
+            <item index="21" class="java.lang.String" itemvalue="pyicloud" />
+            <item index="22" class="java.lang.String" itemvalue="click" />
+            <item index="23" class="java.lang.String" itemvalue="dlib" />
+            <item index="24" class="java.lang.String" itemvalue="keras" />
+            <item index="25" class="java.lang.String" itemvalue="cascade" />
+            <item index="26" class="java.lang.String" itemvalue="imutils" />
+            <item index="27" class="java.lang.String" itemvalue="vs" />
+            <item index="28" class="java.lang.String" itemvalue="PIL" />
+            <item index="29" class="java.lang.String" itemvalue="geopy" />
+            <item index="30" class="java.lang.String" itemvalue="urllib3" />
+            <item index="31" class="java.lang.String" itemvalue="serial" />
+            <item index="32" class="java.lang.String" itemvalue="sound" />
+            <item index="33" class="java.lang.String" itemvalue="scrapy" />
+            <item index="34" class="java.lang.String" itemvalue="scapy" />
+            <item index="35" class="java.lang.String" itemvalue="nexmo" />
+            <item index="36" class="java.lang.String" itemvalue="wx" />
+            <item index="37" class="java.lang.String" itemvalue="beepy" />
+            <item index="38" class="java.lang.String" itemvalue="self" />
+            <item index="39" class="java.lang.String" itemvalue="cryptography" />
+            <item index="40" class="java.lang.String" itemvalue="endecrypt" />
+            <item index="41" class="java.lang.String" itemvalue="paramiko" />
+            <item index="42" class="java.lang.String" itemvalue="pymongo" />
+            <item index="43" class="java.lang.String" itemvalue="pydrive" />
+            <item index="44" class="java.lang.String" itemvalue="django" />
+            <item index="45" class="java.lang.String" itemvalue="yagmail" />
+            <item index="46" class="java.lang.String" itemvalue="enigma" />
+            <item index="47" class="java.lang.String" itemvalue="pyenigma" />
+            <item index="48" class="java.lang.String" itemvalue="sklearn" />
+            <item index="49" class="java.lang.String" itemvalue="pyfiglet" />
+            <item index="50" class="java.lang.String" itemvalue="oauth2client" />
+            <item index="51" class="java.lang.String" itemvalue="gspread" />
+            <item index="52" class="java.lang.String" itemvalue="apiclient" />
+            <item index="53" class="java.lang.String" itemvalue="googleapiclient" />
+            <item index="54" class="java.lang.String" itemvalue="mediapipe" />
+            <item index="55" class="java.lang.String" itemvalue="comtypes" />
+            <item index="56" class="java.lang.String" itemvalue="pycaw" />
+            <item index="57" class="java.lang.String" itemvalue="skimage" />
+            <item index="58" class="java.lang.String" itemvalue="osascript" />
+            <item index="59" class="java.lang.String" itemvalue="speedtest" />
+            <item index="60" class="java.lang.String" itemvalue="shrimpy" />
+            <item index="61" class="java.lang.String" itemvalue="plotly" />
+            <item index="62" class="java.lang.String" itemvalue="yfinance" />
+            <item index="63" class="java.lang.String" itemvalue="stegano" />
+            <item index="64" class="java.lang.String" itemvalue="Pillow" />
+            <item index="65" class="java.lang.String" itemvalue="quandl" />
+            <item index="66" class="java.lang.String" itemvalue="cvzone" />
+            <item index="67" class="java.lang.String" itemvalue="pynput" />
+            <item index="68" class="java.lang.String" itemvalue="bs4" />
+            <item index="69" class="java.lang.String" itemvalue="pdfkit" />
+            <item index="70" class="java.lang.String" itemvalue="phonenumbers" />
+            <item index="71" class="java.lang.String" itemvalue="pyaudio" />
+            <item index="72" class="java.lang.String" itemvalue="playsound" />
+            <item index="73" class="java.lang.String" itemvalue="gtts" />
+            <item index="74" class="java.lang.String" itemvalue="sounddevice" />
+            <item index="75" class="java.lang.String" itemvalue="wavio" />
+            <item index="76" class="java.lang.String" itemvalue="librosa" />
+            <item index="77" class="java.lang.String" itemvalue="torch" />
+            <item index="78" class="java.lang.String" itemvalue="transformers" />
+            <item index="79" class="java.lang.String" itemvalue="PySimpleGUI" />
+            <item index="80" class="java.lang.String" itemvalue="Crypto" />
+            <item index="81" class="java.lang.String" itemvalue="icalevents" />
+            <item index="82" class="java.lang.String" itemvalue="yeelight" />
+            <item index="83" class="java.lang.String" itemvalue="dns" />
+            <item index="84" class="java.lang.String" itemvalue="colorama" />
+            <item index="85" class="java.lang.String" itemvalue="services" />
+            <item index="86" class="java.lang.String" itemvalue="pydnserver" />
+            <item index="87" class="java.lang.String" itemvalue="pyebpf" />
+            <item index="88" class="java.lang.String" itemvalue="samsungtv" />
+            <item index="89" class="java.lang.String" itemvalue="samsungtvws" />
+            <item index="90" class="java.lang.String" itemvalue="wakeonlan" />
+            <item index="91" class="java.lang.String" itemvalue="base45" />
+            <item index="92" class="java.lang.String" itemvalue="cose" />
+            <item index="93" class="java.lang.String" itemvalue="cbor2" />
+            <item index="94" class="java.lang.String" itemvalue="codext" />
+            <item index="95" class="java.lang.String" itemvalue="cbor" />
+            <item index="96" class="java.lang.String" itemvalue="cwt" />
+            <item index="97" class="java.lang.String" itemvalue="portalocker" />
+            <item index="98" class="java.lang.String" itemvalue="Django" />
+            <item index="99" class="java.lang.String" itemvalue="whois" />
+            <item index="100" class="java.lang.String" itemvalue="pyglet" />
+            <item index="101" class="java.lang.String" itemvalue="psutil" />
+            <item index="102" class="java.lang.String" itemvalue="opensea" />
+            <item index="103" class="java.lang.String" itemvalue="selenium" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="W292" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="list.*" />
+          <option value="keras.models.load_model" />
+          <option value="bytes.encode" />
+          <option value="typing.NamedTuple.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

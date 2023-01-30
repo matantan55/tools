@@ -1,0 +1,2 @@
+cd social-engineer-toolkit -> sudo setoolkit
+cd BabySploit/ -> babysploit
