@@ -16,6 +16,8 @@ from keyboard import is_pressed
 import time
 import contextlib
 from threading import Thread
+from ipaddress import IPv4Network
+import netifaces
 
 # needs administrator privileges
 
@@ -353,7 +355,7 @@ class HostsDiscoverer:
         """
         Object Constractor
         """
-        self.target_ip = f"{self.get_gateway_ip_address()}/24"
+        self.target_ip = self.get_subnet_mask()
         self.broadcasting_mac = "ff:ff:ff:ff:ff:ff"
 
     def discover(self) -> list:
@@ -370,14 +372,11 @@ class HostsDiscoverer:
         # the discovered hosts
 
     @staticmethod
-    def get_gateway_ip_address() -> str:
-        """
-        this function returns the ip address of the gateway
-        :return: the ip address of the gateway
-        """
-        return subprocess.Popen(["route -n get default | grep 'gateway' | awk '{print $2}'"],
-                                stdout=subprocess.PIPE,
-                                shell=True).stdout.read().decode().replace("\n", "")
+    def get_subnet_mask() -> str:
+        router_ip, iface = netifaces.gateways()["default"][2][0], netifaces.gateways()["default"][2][1]
+        netmask = netifaces.ifaddresses(iface)[2][0]["netmask"]
+        mask = IPv4Network(f'0.0.0.0/{netmask}').prefixlen
+        return f"{router_ip}/{mask}"
 
 
 class DeviceTable:
@@ -412,16 +411,6 @@ class DeviceTable:
         :return: the current object as a string.
         """
         return pd.DataFrame(self.elements, columns=self.labels).to_string()
-
-
-def get_subnet_mask() -> str:
-    """
-    this function return the subnet mask of the current network.
-    :return: the subnet mask as an ip.
-    """
-    return subprocess.Popen(["ifconfig -a| grep -w in et|awk '{print $6}'"],
-                            stdout=subprocess.PIPE,
-                            shell=True).stdout.read().decode().replace("\n", "").replace("255", "0")
 
 
 def is_admin() -> bool:
