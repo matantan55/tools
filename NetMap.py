@@ -1,11 +1,11 @@
-from scapy.all import *
-from scapy.layers.inet import TCP, IP, ICMP
-import contextlib
+import socket
 import subprocess
 import re
+import sys
 from pprint import pprint
 import json
 from tqdm import tqdm
+from threading import Thread
 
 
 class NetworkMapper:
@@ -50,46 +50,38 @@ class PortScanner:
         """
         This function checks what ports are open for the given host and returns a results dictionary with the port
         number as the key and a tuple with the port service and the port state as the value.
-        :param host: the ip of the query host.
+        :param host: the ip of the query host. (str)
         :return: the result dictionary (dict).
         """
         open_ports = {}
-        for dst_port in self.ports:
-            src_port = RandShort()
-            if response := sr1(
-                    IP(dst=host) / TCP(sport=src_port, dport=dst_port, flags="S"),
-                    timeout=1,
-                    verbose=0,
-            ):
-                if response.haslayer(TCP):
-                    if response.getlayer(TCP).flags == 0x12:
-                        sr(
-                            IP(dst=host) / TCP(sport=src_port, dport=dst_port, flags='R'),
-                            timeout=1,
-                            verbose=0,
-                        )
-                        open_ports[dst_port] = (self.ports[dst_port], "open")
-                elif response.haslayer(ICMP):
-                    if int(response.getlayer(ICMP).type) == 3 and int(
-                            response.getlayer(ICMP).code
-                    ) in {1, 2, 3, 9, 10, 13}:
-                        open_ports[dst_port] = (self.ports[dst_port], "filtered (silently dropped)")
+        ports_threads = [Thread(target=self.scan_port, args=(host, port, open_ports), daemon=True) for port in
+                         self.ports]
+        for pt in ports_threads:
+            pt.start()
+        for pt in ports_threads:
+            pt.join()
         return open_ports
+
+    def scan_port(self, host: str, port: int, open_ports: dict) -> None:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(3)
+        try:
+            s.connect((host, port))
+            open_ports[port] = self.ports[port]
+        except (ConnectionError, TimeoutError, socket.timeout, OSError):
+            pass
+        finally:
+            s.close()
 
     def scan_hosts(self, hosts: dict[str:list]) -> None:
         """
         This function get a dictionary of hosts and their data and modify the dictionary by adding a dictionary of open
         ports (for every host) to each key value (value-type=list).
-        :param hosts: dictionary of hosts and their data
+        :param hosts: dictionary of hosts and their data (dict)
         :return: None
         """
-        for host in tqdm(hosts):
-            response = sr1(IP(dst=host) / ICMP(), timeout=2, verbose=0)
-
-            if response and int(response.getlayer(ICMP).type) != 3 and int(
-                    response.getlayer(ICMP).code
-            ) not in {1, 2, 3, 9, 10, 13}:
-                hosts[host].append(self.ports_scan(host))
+        for host in tqdm(hosts, file=sys.stdout):
+            hosts[host].append(self.ports_scan(host))
 
 
 def main() -> None:
