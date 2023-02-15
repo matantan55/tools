@@ -5,6 +5,8 @@ import re
 from pprint import pprint
 import json
 from threading import Thread
+from ipaddress import ip_network, IPv4Network, IPv4Address
+import netifaces
 
 
 class NetworkMapper:
@@ -24,8 +26,7 @@ class NetworkMapper:
         pt = PortScanner()
         pt.turbo_scan(self.hosts)
 
-    @staticmethod
-    def _find_hosts() -> dict:
+    def _find_hosts(self) -> dict:
         """
         This function collects all the connected hosts in the network and maps them to their data
         :return: a dictionary with all the every host mapped to their mac address
@@ -34,7 +35,23 @@ class NetworkMapper:
             "utf-8")
         ips = re.findall(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', out)
         macs = re.findall(r'\w*:\w*:\w*:\w*:\w*:\w*', out)
-        return {ip: [mac] for ip, mac in zip(ips, macs)}
+        network = [*self.get_network().hosts()]
+        return {ip: [mac] for ip, mac in zip(ips, macs) if IPv4Address(ip) in network}
+
+    @staticmethod
+    def get_network() -> IPv4Network:
+        """
+        This function generates and returns a IPv4Network object which contains range of ip address in the current
+        network.
+        :return: IPv4Network object
+        """
+        gw = netifaces.gateways()
+        router_ip, iface = gw["default"][2][0], gw["default"][2][1]
+        netdata = netifaces.ifaddresses(iface)
+        netmask = netdata[2][0]["netmask"]
+        mask = IPv4Network(f'0.0.0.0/{netmask}').prefixlen
+        subnet_musk = f"{router_ip}/{mask}"
+        return ip_network(subnet_musk, False)
 
 
 class PortScanner:
@@ -72,7 +89,7 @@ class PortScanner:
         :return: None
         """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(3)
+        s.settimeout(5)
         try:
             s.connect((host, port))
             open_ports[port] = self.ports[port]
