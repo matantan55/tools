@@ -1,9 +1,14 @@
+import multiprocessing
 import socket
 import subprocess
 import re
 import sys
+import time
+from ipaddress import IPv4Network
 from pprint import pprint
 import json
+
+import netifaces
 from tqdm import tqdm
 from threading import Thread
 
@@ -23,7 +28,7 @@ class NetworkMapper:
 
     def _add_ports(self):
         pt = PortScanner()
-        pt.scan_hosts(self.hosts)
+        pt.turbo_scan(self.hosts)
 
     @staticmethod
     def _find_hosts() -> dict:
@@ -46,7 +51,7 @@ class PortScanner:
         json_data: dict = json.load(open("config_files/ports.json", 'r'))
         self.ports = {int(key): value for key, value in json_data.items()}
 
-    def ports_scan(self, host: str) -> dict:
+    def _ports_scan(self, host: str) -> dict:
         """
         This function checks what ports are open for the given host and returns a results dictionary with the port
         number as the key and a tuple with the port service and the port state as the value.
@@ -54,7 +59,7 @@ class PortScanner:
         :return: the result dictionary (dict).
         """
         open_ports = {}
-        ports_threads = [Thread(target=self.scan_port, args=(host, port, open_ports), daemon=True) for port in
+        ports_threads = [Thread(target=self._scan_port, args=(host, port, open_ports), daemon=True) for port in
                          self.ports]
         for pt in ports_threads:
             pt.start()
@@ -62,7 +67,16 @@ class PortScanner:
             pt.join()
         return open_ports
 
-    def scan_port(self, host: str, port: int, open_ports: dict) -> None:
+    def _scan_port(self, host: str, port: int, open_ports: dict) -> None:
+        """
+        This function gets an ip, port number and a dictionary of open ports. checks if the given port is port in
+        the given host and add the port to the dictionary as a key, and the ports service as the value if the port is
+        indeed open.
+        :param host: query host's ip (str)
+        :param port: query port number (int)
+        :param open_ports: dictionary of the open ports (dict)
+        :return: None
+        """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(3)
         try:
@@ -80,13 +94,57 @@ class PortScanner:
         :param hosts: dictionary of hosts and their data (dict)
         :return: None
         """
-        for host in tqdm(hosts, file=sys.stdout):
-            hosts[host].append(self.ports_scan(host))
+        for host in hosts:
+            hosts[host].append(self._ports_scan(host))
+
+    def turbo_scan(self, hosts: dict[str:list]) -> None:
+        """
+        This function get a dictionary of hosts and their data and modify the dictionary by adding a dictionary of open
+        ports (for every host) to each key value (value-type=list) with better performance by using multiprocessing.
+        :param hosts: dictionary of hosts and their data (dict)
+        :return: None
+        """
+        cores = multiprocessing.cpu_count()
+        dict_size = len(hosts)
+        chunk_size = dict_size // cores + 1
+        keys = list(hosts.keys())
+        chunks = [keys[i:i + chunk_size] for i in range(0, dict_size, chunk_size)]
+        pool = multiprocessing.Pool(processes=cores)
+        for d, h in zip(self._upack_list_of_lists(pool.map(self._scan_hosts, chunks)), hosts):
+            hosts[h].append(d)
+        pool.close()
+
+    def _scan_hosts(self, hosts: list) -> list:
+        """
+        help function for turbo scan.
+        :param hosts: list of hosts ips (list)
+        :return: modified list where every index contain the results of the host that was in that same index in the
+        given list.
+        """
+        for index in range(len(hosts)):
+            hosts[index] = self._ports_scan(hosts[index])
+        return hosts
+
+    @staticmethod
+    def _upack_list_of_lists(lol: list[list]) -> list:
+        """
+        help function for turbo scan. This function gets a list of lists and extracts all the element from every child
+        list to the father list.
+        :param lol: list of lists (list).
+        :return: an unpack list (list).
+        """
+        packed_lst = []
+        for lst in lol:
+            packed_lst.extend(lst)
+        return packed_lst
 
 
 def main() -> None:
     nm = NetworkMapper()
+    # s = time.time()
     nm.collect_info()
+    # e = time.time()
+    # print(e - s)
     pprint(nm.hosts)
 
 
