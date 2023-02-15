@@ -2,14 +2,8 @@ import multiprocessing
 import socket
 import subprocess
 import re
-import sys
-import time
-from ipaddress import IPv4Network
 from pprint import pprint
 import json
-
-import netifaces
-from tqdm import tqdm
 from threading import Thread
 
 
