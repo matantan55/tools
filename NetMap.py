@@ -18,11 +18,16 @@ class NetworkMapper:
 
     def collect_info(self) -> None:
         self._add_ports()
+        self._add_os()
 
     def _add_os(self) -> None:
         pass
 
-    def _add_ports(self):
+    def _add_ports(self) -> None:
+        """
+        This function uses a PortScanner object to provide to each host (in the host's dictionary) its open ports.
+        :return: None
+        """
         pt = PortScanner()
         pt.turbo_scan(self.hosts)
 
@@ -98,7 +103,7 @@ class PortScanner:
         finally:
             s.close()
 
-    def scan_hosts(self, hosts: dict[str:list]) -> None:
+    def scan_hosts(self, hosts: dict[str, list]) -> None:
         """
         This function get a dictionary of hosts and their data and modify the dictionary by adding a dictionary of open
         ports (for every host) to each key value (value-type=list).
@@ -108,7 +113,7 @@ class PortScanner:
         for host in hosts:
             hosts[host].append(self._ports_scan(host))
 
-    def turbo_scan(self, hosts: dict[str:list]) -> None:
+    def turbo_scan(self, hosts: dict[str, list]) -> None:
         """
         This function get a dictionary of hosts and their data and modify the dictionary by adding a dictionary of open
         ports (for every host) to each key value (value-type=list) with better performance by using multiprocessing.
