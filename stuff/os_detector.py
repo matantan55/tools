@@ -24,7 +24,8 @@ class OSDetector:
         if not scan:
             self.HOSTS_OS[host] = "UNKNOWN"
             return
-        self.HOSTS_OS[host] = scan[0]['osclass']['osfamily']
+        results = [s['osclass']['osfamily'] for s in scan]
+        self.HOSTS_OS[host] = max(results, key=results.count)
 
     def scan_hosts(self, hosts: list[str]) -> None:
         """
